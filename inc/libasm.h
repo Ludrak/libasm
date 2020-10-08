@@ -23,10 +23,10 @@ t_size		ft_read(int fd, void *buf, t_size len);
 **  LIBASM - STRINGS
 */
 t_size		ft_strlen(const char *str);
-int			ft_strcmp(char *str1, char *str2);
-char		*ft_strcpy(char *dst, char *src);
-char		*ft_strncpy(char *dst, char *src, t_size len);
-char        *ft_strdup(char *str);
+int			ft_strcmp(const char *str1, const char *str2);
+char		*ft_strcpy(char *dst, const char *src);
+char		*ft_strncpy(char *dst, const char *src, t_size n);
+char        *ft_strdup(const char *str);
 
 /*
 **  LIBASM - LISTS

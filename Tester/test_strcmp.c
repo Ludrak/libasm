@@ -1,7 +1,7 @@
 #include "tester.h"
 
 
-static int  _TEST_STRLEN(char *str, t_size (test_strlen)(const char *), int *result)
+static int  _TEST_STRCMP(char *str1, char *str2, int (test_strcmp)(const char *, const char *), int *result)
 {
     int fd[2], i = 0;
     pipe(fd);
@@ -18,7 +18,7 @@ static int  _TEST_STRLEN(char *str, t_size (test_strlen)(const char *), int *res
     if (pid == 0)
     {
         if (result)
-            *result = test_strlen(str);
+            *result = test_strcmp(str1, str2);
         printf ("\033[1;32m✓ %5d\033[0m", *result);
         fflush(stdout);
         close(fd[0]);
@@ -56,15 +56,15 @@ static int  _TEST_STRLEN(char *str, t_size (test_strlen)(const char *), int *res
     }
 }
 
-int         _TEST_STRLEN_UNIT(char *str)
+int         _TEST_STRCMP_UNIT(char *str1, char *str2)
 {
     static int  unit_test = 1;
     int r1 = -1, r2 = -1;
 
     printf ("%2d | ", unit_test++);
-    _TEST_STRLEN(str, strlen, &r1);
+    _TEST_STRCMP(str1, str2, strcmp, &r1);
     printf(" | ");
-    _TEST_STRLEN(str, ft_strlen, &r2);
+    _TEST_STRCMP(str1, str2, ft_strcmp, &r2);
 
     if (r2 == r1)
         printf (" | -> \033[1;32mOK\033[0m");

@@ -1,7 +1,7 @@
 #include "tester.h"
 
 
-static int  _TEST_STRLEN(char *str, t_size (test_strlen)(const char *), int *result)
+static int  _TEST_STRDUP(char *str, char *(test_strdup)(const char *), char **result)
 {
     int fd[2], i = 0;
     pipe(fd);
@@ -18,13 +18,17 @@ static int  _TEST_STRLEN(char *str, t_size (test_strlen)(const char *), int *res
     if (pid == 0)
     {
         if (result)
-            *result = test_strlen(str);
-        printf ("\033[1;32m✓ %5d\033[0m", *result);
+        {
+            *result = test_strdup(str);
+            free(*result);
+            *result = test_strdup(str);
+        }
+        printf ("\033[1;32m✓      \033[0m");
         fflush(stdout);
         close(fd[0]);
         close(1);
         dup(fd[1]);
-        write(1, result, sizeof(int)); 
+        write(1, *result, sizeof(*result)); 
         exit(EXIT_SUCCESS);
     }
     
@@ -37,7 +41,7 @@ static int  _TEST_STRLEN(char *str, t_size (test_strlen)(const char *), int *res
     close(0);
     close(fd[1]);
     dup(fd[0]);
-    read(fd[0], result, sizeof(int));
+    read(fd[0], *result, sizeof(char *));
 
     if (WIFEXITED(status))
     {
@@ -50,25 +54,26 @@ static int  _TEST_STRLEN(char *str, t_size (test_strlen)(const char *), int *res
     {
         signal = WTERMSIG(status);
         printf ("\033[1;31mx CRASH\033[0m (sig: %2d)", signal);
-        if (result)
-            *result = signal;
         return (EXIT_FAILURE);
     }
 }
 
-int         _TEST_STRLEN_UNIT(char *str)
+int         _TEST_STRDUP_UNIT(char *src)
 {
     static int  unit_test = 1;
-    int r1 = -1, r2 = -1;
+    char *r1 = NULL, *r2 = NULL;
+
 
     printf ("%2d | ", unit_test++);
-    _TEST_STRLEN(str, strlen, &r1);
+    _TEST_STRDUP(src, strdup, &r1);
     printf(" | ");
-    _TEST_STRLEN(str, ft_strlen, &r2);
+    _TEST_STRDUP(src, ft_strdup, &r2);
 
     if (r2 == r1)
         printf (" | -> \033[1;32mOK\033[0m");
     else
-        printf (" | -> \033[1;31mKO\033[0m : returned %d instead of %d", r2, r1);
+        printf (" | -> \033[1;31mKO\033[0m : returned \"%s\" instead of \"%s\"", r2, r1);
+    free(r1);
+    free(r2);
     printf ("\n");
 }

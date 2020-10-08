@@ -27,11 +27,14 @@ ft_strcmp:
 	jmp		.eq
 ;	Above - Called when str1 > str2
 .above:
-	mov		rax, 1
+	sub		al, bl
+	movzx	rax, al
 	ret
 ;	Below - Called when str1 < str2
 .below:
-	mov		rax, -1
+	sub		bl, al
+	movzx	rax, bl
+	neg		rax
 	ret
 ;	End - Called when str1 or str2 is 0
 .end:

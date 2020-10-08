@@ -51,8 +51,8 @@ fclean : clean clean_test
 
 re : fclean all
 
-test:
-	@make -C Tester
+test: all
+	@make -C Tester re
 	@./Tester/test-libasm
 
 clean_test:
