@@ -14,13 +14,14 @@ OBJS =		$(addprefix $(OBJ_DIR)/,$(SRCS:.s=.o))
 
 HEADERS =	inc/libasm.h
 
-ASM =		nasm --prefix "_"
+ASM =		nasm
 
 ifeq ($(shell uname), Linux)
 FORMAT =	elf64
 endif
 ifeq ($(shell uname), Darwin)
 FORMAT =	macho64
+ASM	  +=	--prefix "_"
 endif
 
 all: $(NAME)
@@ -55,3 +56,5 @@ test: all
 clean_test:
 	@rm -rf Tester/bin
 	@rm -rf Tester/test-libasm
+
+.PHONY: all clean fclean re test clean_test

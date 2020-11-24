@@ -10,7 +10,7 @@
 
 ;	Linux
 %ifidn	__OUTPUT_FORMAT__, elf64
-	%macro JMALLOC
+	%macro JMALLOC 1
 		call %1 wrt ..plt
 	%endmacro
 
@@ -49,6 +49,7 @@ ft_strdup:	;rdi
 	add		rsp, 8
 .err:
 	ret
+
 
 
 

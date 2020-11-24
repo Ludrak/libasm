@@ -7,12 +7,6 @@
 
 typedef unsigned long int t_size;
 
-typedef struct  s_list
-{
-    void            *data;
-    struct s_list   *next;
-}               t_list;
-
 /*
 **  LIBASM - I/O
 */
@@ -28,10 +22,5 @@ char		*ft_strcpy(char *dst, const char *src);
 char		*ft_strncpy(char *dst, const char *src, t_size n);
 char        *ft_strdup(const char *str);
 
-/*
-**  LIBASM - LISTS
-*/
-t_list      *ft_list_push_front(t_list **alst, t_list *lst);
-t_size      ft_list_size(t_list *lst);
-
 #endif
+

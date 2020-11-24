@@ -1,7 +1,7 @@
 
 NAME=test-libasm
 
-SRCS=main.c test_strlen.c test_strcmp.c test_strcpy.c test_strncpy.c test_strdup.c
+SRCS=main.c test_strlen.c test_strcmp.c test_strcpy.c test_strncpy.c test_strdup.c test_write.c test_read.c
 OBJDIR=bin
 OBJS=$(addprefix $(OBJDIR)/,$(SRCS:.c=.o))
 
@@ -16,7 +16,7 @@ $(OBJDIR):
 	@mkdir -p $@
 
 $(OBJDIR)/%.o : %.c
-	gcc -c -o $@ -L../ -I../inc/ -I./ $<
+	gcc -c -o $@ -I../inc/ -I./ $<
 
 clean:
 	rm -rf $(OBJDIR)
