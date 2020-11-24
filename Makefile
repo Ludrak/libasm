@@ -8,16 +8,13 @@ SRCS =		io/ft_write.s				\
 			str/ft_strcmp.s				\
 			str/ft_strcpy.s				\
 			str/ft_strncpy.s			\
-			str/ft_strdup.s				\
-			list/ft_list_push_front.s	\
-			list/ft_list_size.s
-
+			str/ft_strdup.s				
 OBJ_DIR =	bin
 OBJS =		$(addprefix $(OBJ_DIR)/,$(SRCS:.s=.o))
 
 HEADERS =	inc/libasm.h
 
-ASM =		nasm
+ASM =		nasm --prefix "_"
 
 ifeq ($(shell uname), Linux)
 FORMAT =	elf64

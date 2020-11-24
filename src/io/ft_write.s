@@ -12,7 +12,9 @@
 ;   Linux
 %ifidn __OUTPUT_FORMAT__, elf64
 	%assign W_CALL_x64  0x1
-	%define ERRNO       __errno_location
+	%define ERRNO_LOC	__errno_location
+	; PIC relocation for ELF needs ..plt
+	%define ERRNO_CALLW	wrt ..plt
 	%macro JERRNO 1
 		mov		rdx, rax
 		neg		rdx
@@ -23,7 +25,8 @@
 ;   Darwin
 %elifidn __OUTPUT_FORMAT__, macho64
 	%assign W_CALL_x64  0x2000004
-	%define ERRNO       __error
+	%define ERRNO_LOC	__error
+	%define ERRNO_CALLW
 	%macro JERRNO 1
 		mov		rdx, rax
 		jc		%1
@@ -35,7 +38,7 @@
 	section	.text
 
 	global	ft_write
-	extern	ERRNO
+	extern	ERRNO_LOC
 
 ft_write:
 	mov		rax, W_CALL_x64
@@ -45,7 +48,7 @@ ft_write:
 ;   ERRNO catch
 .errno:
 	sub		rsp, 8
-	call	ERRNO wrt ..plt
+	call	ERRNO_LOC ERRNO_CALLW
 	add		rsp, 8
 	mov		[rax], rdx
 	mov		rax, -1

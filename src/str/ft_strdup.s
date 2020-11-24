@@ -8,6 +8,19 @@
 ;                                             ###   ########Lyon.fr
 ;  -----------------------------------------------------------------
 
+;	Linux
+%ifidn	__OUTPUT_FORMAT__, elf64
+	%macro JMALLOC
+		call %1 wrt ..plt
+	%endmacro
+
+;	Darwin
+%elifidn __OUTPUT_FORMAT__, macho64
+	%macro JMALLOC 1
+		call %1
+	%endmacro
+%endif
+
 ;	STRDUP - text section
 	section	.text
 	global	ft_strdup
@@ -24,7 +37,7 @@ ft_strdup:	;rdi
 	mov		rdi, rax	;save size in rdi
 	push	rax			;save size
 	sub		rsp, 8
-	call	malloc wrt ..plt		;call malloc
+	JMALLOC	malloc		; call malloc
 	add		rsp, 8
 	pop		rdx			;set rdx to size
 	pop		rsi			;set rsi to src
@@ -36,4 +49,9 @@ ft_strdup:	;rdi
 	add		rsp, 8
 .err:
 	ret
+
+
+
+
+
 
