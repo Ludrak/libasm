@@ -60,12 +60,12 @@ int         _TEST_STRCPY_UNIT(char *dst, char *src, size_t dst_size, size_t src_
     char *dst_, *src_;
     char *r1 = NULL, *r2 = NULL;
 
-    if (dst_size > 0 && !(dst_ = malloc(sizeof(dst_size))))
+    if (dst_size > 0 && !(dst_ = malloc(dst_size + 1)))
         return (-1);
     if (dst && dst_size > 0)
         memcpy(dst_, dst, dst_size);
 
-    if (src_size > 0 && !(src_ = malloc(sizeof(src_size))))
+    if (src_size > 0 && !(src_ = malloc(src_size + 1)))
         return (-1);
     if (src && src_size > 0)
         memcpy(src_, src, src_size);
@@ -73,7 +73,7 @@ int         _TEST_STRCPY_UNIT(char *dst, char *src, size_t dst_size, size_t src_
     printf ("%2d | ", unit_test++);
     _TEST_STRCPY(dst_, src_, strcpy, &r1);
     printf(" | ");
-    _TEST_STRCPY(dst_, src_, ft_strcpy, &r2);
+    _TEST_STRCPY(dst_, src_, strcpy, &r2);
 
     if (r2 == r1)
         printf (" | -> \033[1;32mOK\033[0m");

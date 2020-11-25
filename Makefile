@@ -29,6 +29,7 @@ all: $(NAME)
 
 $(NAME) : $(OBJ_DIR) $(OBJS)
 	@ar rcs $@ $(OBJS)
+	@ranlib
 
 $(OBJ_DIR) : 
 	@echo "Missing bin directory, creating it."
@@ -36,7 +37,7 @@ $(OBJ_DIR) :
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.s $(HEADERS)
 	@mkdir -p $(shell dirname $@)
-	@$(ASM) -f $(FORMAT) -g $< -o $@
+	@$(ASM) -f $(FORMAT) $< -o $@
 	@echo "Compiled : $(shell basename $<)"
 
 clean :
