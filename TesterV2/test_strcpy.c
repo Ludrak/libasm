@@ -52,6 +52,7 @@ static int  _TEST_STRCPY(char *str1, char *str2, char *(test_strcpy)(char *, con
         printf ("\033[1;31mx CRASH\033[0m (sig: %2d)", signal);
         return (EXIT_FAILURE);
     }
+	return (EXIT_SUCCESS);
 }
 
 int         _TEST_STRCPY_UNIT(char *dst, char *src, size_t dst_size, size_t src_size)
@@ -60,11 +61,11 @@ int         _TEST_STRCPY_UNIT(char *dst, char *src, size_t dst_size, size_t src_
     char *dst_, *src_;
     char *r1 = NULL, *r2 = NULL;
 
+
     if (dst_size > 0 && !(dst_ = malloc(dst_size + 1)))
         return (-1);
     if (dst && dst_size > 0)
         memcpy(dst_, dst, dst_size);
-
     if (src_size > 0 && !(src_ = malloc(src_size + 1)))
         return (-1);
     if (src && src_size > 0)
@@ -72,14 +73,18 @@ int         _TEST_STRCPY_UNIT(char *dst, char *src, size_t dst_size, size_t src_
 
     printf ("%2d | ", unit_test++);
     _TEST_STRCPY(dst_, src_, strcpy, &r1);
-    printf(" | ");
+
+	printf(" | ");
+    if(dst && dst_size > 0)
+		memcpy(dst_, dst, dst_size);
+    if (dst && dst_size > 0)
+		memcpy(src_, src, src_size);
     _TEST_STRCPY(dst_, src_, strcpy, &r2);
 
     if (r2 == r1)
         printf (" | -> \033[1;32mOK\033[0m");
     else
         printf (" | -> \033[1;31mKO\033[0m : returned \"%s\" instead of \"%s\"", r2, r1);
-    free(dst_);
-    free(src_);
     printf ("\n");
+	return (0);
 }

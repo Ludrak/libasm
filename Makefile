@@ -29,7 +29,6 @@ all: $(NAME)
 
 $(NAME) : $(OBJ_DIR) $(OBJS)
 	@ar rcs $@ $(OBJS)
-	@ranlib
 
 $(OBJ_DIR) : 
 	@echo "Missing bin directory, creating it."
