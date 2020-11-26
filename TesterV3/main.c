@@ -1,60 +1,59 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lrobino <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/26 11:33:41 by lrobino           #+#    #+#             */
+/*   Updated: 2020/11/26 12:14:07 by lrobino          ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "secure_exec.h"
 
-void	test_strlen_unit(char *str)
+int	test_strlen_unit(char *str)
 {
-	static int	unit = 1;
-	int	exception = 0, ft_exception = 0;
+	static size_t	*shared_result[2];
+	int				sig[2], error[2];
 	VAR_INIT
 
-	printf("%d | ", unit++);
-	fflush(stdout);
+	shared_result[0] = mmap(NULL, sizeof(**shared_result), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+	shared_result[1] = mmap(NULL, sizeof(**shared_result), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+
+	write (1, "| ", 2);
 	TRY
-	{
-		strlen(str);
-	}
-	CATCH (&exception)
-	printf(" | ");
+		*shared_result[0] = strlen(str);
+	CATCH(&sig[0], &error[0])
 	fflush(stdout);
+	write (1, " | ", 3);
 	TRY
-	{
-		strlen(str);
-	}
-	CATCH (&exception)
-	printf(" |\n");
+		*shared_result[1] = strlen(str);
+	CATCH (&sig[1], &error[1]);
 	fflush(stdout);
-}
+	write(1, " |", 2);
+	
+	if (*shared_result[0] != *shared_result[1])
+		fprintf (stderr, "\n-> TEST \033[1;31mFAILED\033[0m (results does not match)\nstrlen: res:	%zu\nft_strlen: res:	%zu\n\n", *shared_result[0], *shared_result[1]);
+	else if (sig[0] != sig[1])
+		fprintf (stderr, "\n-> TEST \033[1;31mFAILED\033[0m (signals does not match)\nstrlen: sig:	%d\nft_strlen: sig:	%d\n\n", sig[0], sig[1]);
+	else if (error[0] != error[1])
+		fprintf (stderr, "\n-> TEST \033[1;31mFAILED\033[0m (errno does not match)\nstrlen: errno:		%d\nft_strlen: errno:	%d\n\n", error[0], error[1]);	
+	else
+		printf (" -> \033[1;32mOK\033[0m\n");
 
-
-int main(void)
-{
-	test_strlen_unit("Hello world");
-	test_strlen_unit("dasdasdasdasdasdasdasdasdasdasdas");
-	test_strlen_unit(NULL);
-}
-
-/*
-int main(void)
-{
-	int	exception = 0;
-	int	*result = malloc(sizeof(int));
-	VAR_INIT
-
-	printf ("%p\n", result);
-	*result = 0;
-	TRY
-	{
-		*result = 3 + 5;
-		printf ("%p\n", result);
-
-		int *a = 0;
-		*a = 0;
-	}
-	CATCH(&exception);
-	if (exception != 0)
-	{
-		printf ("%p\n", result);
-		printf ("Returned exception : %d resulted in: %d\n", exception, *result);
-	}
+	munmap(shared_result[0], sizeof(**shared_result));
+	munmap(shared_result[1], sizeof(**shared_result));
 	return (0);
-}*/
+}	
+
+int main(void)
+{
+	test_strlen_unit("Hello");
+	test_strlen_unit(NULL);
+	test_strlen_unit("\\\\\\\\\\\\\\\\\\");
+	test_strlen_unit("dfbhasfbsdfkladsfadsjfhadjksfhjkasdhfadsfklhadsjfhadjkshfjkadshfkadhsjkfhadklsfhjkdsahfjkadhsfhdsajkfhadjksfhadklshfkladshkfhadsklfhads");
+	return (0);
+}
+

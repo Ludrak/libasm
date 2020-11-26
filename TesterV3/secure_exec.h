@@ -11,11 +11,16 @@
 # include <string.h>
 # include <sys/types.h>
 # include <sys/ptrace.h>
+# include <sys/mman.h>
+
+char	*ft_itoa(int n);
+int		ft_atoi(const char *n);
+
 
 /*	VAR_INIT: defines usefull variables for try catch blocks
  */
 # define VAR_INIT		int			pid, pipe_fd[2], err, status; \
-						char		errno_buf[2];
+						char		*errno_buf;
 
 /*
  *	TRY: try to run a code apart from the main process. it will handle any errors returning it's output signal
@@ -31,10 +36,11 @@
  *	CATCH: catches an exception and prints 
  *	SIGNAL: a (int *) that will contain the output signal of the catched exception. send NULL to ignore this return
  */
-# define CATCH(SIGNAL)		err = errno; \
-							fprintf (stdout, "\033[1;32m✓ \033[0m"); \
-							errno_buf[0] = (err / 10 == 0) ? ' ' : (err / 10 + '0'); \
-							errno_buf[1] = (err % 10) + '0'; \
+# define CATCH(SIGNAL, ERRNO) \
+							err = errno; \
+							if (err == 0) \
+								fprintf (stdout, "\033[1;32m✓    VALID\033[0m"); \
+							errno_buf = ft_itoa(err); \
 							write(pipe_fd[1], errno_buf, 2); \
 							close(pipe_fd[1]); \
 							exit(0); \
@@ -47,11 +53,13 @@
 							if (SIGNAL) \
 								*SIGNAL = status; \
 							if (WIFSIGNALED(status)) \
-								fprintf (stderr, "\033[1;31mx\033[0m Signal: %d", status); \
+								fprintf (stderr, "\033[1;31mx SIGNALED\033[0m"); \
 							else \
 							{ \
 								read(pipe_fd[0], buf, 2); \
-								printf ("Errno: %s", buf); \
+								*ERRNO = ft_atoi(buf); \
+								if (*ERRNO != 0) \
+									fprintf (stderr, "\033[1;33mØ    ERRNO\033[0m");\
 							} \
 						} \
 						close(pipe_fd[0]); \
