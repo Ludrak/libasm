@@ -4,7 +4,7 @@
 #include <string.h>
 
 
-int		test_strlen_unit(char *str)
+int		test_strcmp_unit(char *str1, char *str2)
 {
 	int		signal[2], error[2];
 	size_t	*results[2];
@@ -15,11 +15,11 @@ int		test_strlen_unit(char *str)
 
 	write (1, "| ", 2);
 	TRY
-		*results[0] = strlen(str);		
+		*results[0] = strcmp(str1, str2);		
 	CATCH(&signal[0], &error[0]);
 	write (1, " | ", 3);
 	TRY
-		*results[1] = strlen(str);		
+		*results[1] = strcmp(str1, str2);		
 	CATCH(&signal[1], &error[1]);
 	write(1, " |", 2);
 	if (signal[0] == 0 && signal[1] ==  0)
@@ -42,9 +42,4 @@ int		test_strlen_unit(char *str)
 	}
 	printf (" -> \033[1;32mOK\033[0m\n");
 	return (0);
-}
-
-int main()
-{
-	test_strlen_unit("");
 }

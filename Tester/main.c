@@ -3,7 +3,7 @@
 
 int main(void)
 {
-
+/*
 	printf ("\n-> TEST ft_strlen\n\033[0;90m###########################\033[0m\n\033[4;37m| strlen     | ft_strlen  |\033[0m\n");
 	test_strlen_unit("Hello World");
 	test_strlen_unit("");
@@ -35,5 +35,16 @@ int main(void)
 	test_strdup_unit("HelloWOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOORLD");
 	test_strdup_unit("");
 	test_strdup_unit(NULL);
+
+	printf ("\n\n-> TEST ft_strcmp\n\033[0;90m###########################\033[0m\n\033[4;37m| strcmp     | ft_strcmp  |\033[0m\n");
+	test_strcmp_unit("hello", "hello");
+	test_strcmp_unit("hello", "world");
+	test_strcmp_unit("hellllll", "helllllo");
+	test_strcmp_unit("hello", "");
+	test_strcmp_unit(NULL, "hello");
+	test_strcmp_unit("", "");
+	test_strcmp_unit(NULL, NULL);*/
+	printf ("\n-> TEST ft_write\n\033[0;90m###########################\033[0m\n\033[4;37m| write      | ft_write   |\033[0m\n");
+	test_write_unit(3, "Hello world", 10);
 	return (0);
 }
