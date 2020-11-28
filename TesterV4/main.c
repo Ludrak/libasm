@@ -10,7 +10,7 @@ int main(void)
 	test_strlen_unit(NULL);
 	test_strlen_unit("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
-	printf ("\n\n-> TEST ft_strcpy\n\033[0;90m###########################\033[0m\n\033[4;37m| strcpy     | ft_strcpy  |\033[0m\n");
+/*	printf ("\n\n-> TEST ft_strcpy\n\033[0;90m###########################\033[0m\n\033[4;37m| strcpy     | ft_strcpy  |\033[0m\n");
 	test_strcpy_unit("hello", "world");
 	test_strcpy_unit("helloooo", "world");
 	test_strcpy_unit("hello", "worldddd");
@@ -34,6 +34,6 @@ int main(void)
 	test_strdup_unit("Hello");
 	test_strdup_unit("HelloWOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOORLD");
 	test_strdup_unit("");
-	test_strdup_unit(NULL);
+	test_strdup_unit(NULL);*/
 	return (0);
 }

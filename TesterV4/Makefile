@@ -1,7 +1,7 @@
 
 NAME=test-libasm
 
-SRCS=main.c utils.c strlen_unit.c strcpy_unit.c strncpy_unit.c strdup_unit.c
+SRCS=main.c utils.c strlen_unit.c
 OBJDIR=bin
 OBJS=$(addprefix $(OBJDIR)/,$(SRCS:.c=.o))
 CFLAGS=#-g3 -fsanitize=address

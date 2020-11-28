@@ -18,7 +18,7 @@ static int  _TEST_STRCPY(char *str1, char *str2, char *(test_strcpy)(char *, con
     if (pid == 0)
     {
         if (result)
-            *result = test_strcpy(str1, str2);
+            *result = strdup(test_strcpy(str1, str2));
         printf ("\033[1;32m✓      \033[0m");
         fflush(stdout);
         close(fd[0]);
@@ -63,19 +63,20 @@ int         _TEST_STRCPY_UNIT(char *dst, char *src, size_t dst_size, size_t src_
 
 
     if (dst_size > 0 && !(dst_ = malloc(dst_size + 1)))
-        return (-1);
-    if (dst && dst_size > 0)
-        memcpy(dst_, dst, dst_size);
+	{
+    	memcpy(dst_, dst, dst_size);
+		return (-1);
+	}
     if (src_size > 0 && !(src_ = malloc(src_size + 1)))
-        return (-1);
-    if (src && src_size > 0)
+	{
         memcpy(src_, src, src_size);
-
+		return (-1);
+	}
     printf ("%2d | ", unit_test++);
     _TEST_STRCPY(dst_, src_, strcpy, &r1);
 
 	printf(" | ");
-    if(dst && dst_size > 0)
+    if	(dst && dst_size > 0)
 		memcpy(dst_, dst, dst_size);
     if (dst && dst_size > 0)
 		memcpy(src_, src, src_size);
@@ -86,5 +87,7 @@ int         _TEST_STRCPY_UNIT(char *dst, char *src, size_t dst_size, size_t src_
     else
         printf (" | -> \033[1;31mKO\033[0m : returned \"%s\" instead of \"%s\"", r2, r1);
     printf ("\n");
+	free(r1);
+	free(r2);
 	return (0);
 }

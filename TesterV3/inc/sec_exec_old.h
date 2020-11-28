@@ -19,8 +19,11 @@ int		ft_atoi(const char *n);
 
 /*	VAR_INIT: defines usefull variables for try catch blocks
  */
-# define VAR_INIT		int			pid, pipe_fd[2], err, status; \
-						char		*errno_buf;
+# define VAR_INIT		int			pid, pipe_fd[2]; \
+						int			sc_signal, sc_errno; \
+						sc_signal = mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANON, -1, 0); \
+						sc_errno = mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANON, -1, 0);
+
 
 /*
  *	TRY: try to run a code apart from the main process. it will handle any errors returning it's output signal
@@ -62,6 +65,6 @@ int		ft_atoi(const char *n);
 									fprintf (stderr, "\033[1;33mØ    ERRNO\033[0m");\
 							} \
 						} \
-						close(pipe_fd[0]); \
+						close(pipe_fd[0]); 
 
 #endif
