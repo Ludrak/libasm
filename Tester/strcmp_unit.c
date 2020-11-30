@@ -1,8 +1,6 @@
 
 #include "secure_exec.h"
-#include <stdio.h>
-#include <string.h>
-
+#include "libasm.h"
 
 int		test_strcmp_unit(char *str1, char *str2)
 {
@@ -19,7 +17,7 @@ int		test_strcmp_unit(char *str1, char *str2)
 	CATCH(&signal[0], &error[0]);
 	write (1, " | ", 3);
 	TRY
-		*results[1] = strcmp(str1, str2);		
+		*results[1] = ft_strcmp(str1, str2);		
 	CATCH(&signal[1], &error[1]);
 	write(1, " |", 2);
 	if (signal[0] == 0 && signal[1] ==  0)

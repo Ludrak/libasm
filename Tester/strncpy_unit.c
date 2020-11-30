@@ -1,8 +1,6 @@
 
 #include "secure_exec.h"
-#include <stdio.h>
-#include <string.h>
-
+#include "libasm.h"
 
 int		test_strncpy_unit(char *dst, char *src, size_t n)
 {
@@ -27,7 +25,7 @@ int		test_strncpy_unit(char *dst, char *src, size_t n)
 	CATCH(&signal[0], &error[0]);
 	write (1, " | ", 3);
 	TRY
-		char *buf = strncpy(allocated_dst, src, n);
+		char *buf = ft_strncpy(allocated_dst, src, n);
 		strcpy(*results[1], buf);
 	CATCH(&signal[1], &error[1]);
 	write(1, " |", 2);

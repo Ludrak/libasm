@@ -1,8 +1,6 @@
 
 #include "secure_exec.h"
-#include <stdio.h>
-#include <string.h>
-
+#include "libasm.h"
 
 int		test_strlen_unit(char *str)
 {

@@ -3,7 +3,6 @@
 
 int main(void)
 {
-/*
 	printf ("\n-> TEST ft_strlen\n\033[0;90m###########################\033[0m\n\033[4;37m| strlen     | ft_strlen  |\033[0m\n");
 	test_strlen_unit("Hello World");
 	test_strlen_unit("");
@@ -43,8 +42,25 @@ int main(void)
 	test_strcmp_unit("hello", "");
 	test_strcmp_unit(NULL, "hello");
 	test_strcmp_unit("", "");
-	test_strcmp_unit(NULL, NULL);*/
+	test_strcmp_unit(NULL, NULL);
+	
+
 	printf ("\n-> TEST ft_write\n\033[0;90m###########################\033[0m\n\033[4;37m| write      | ft_write   |\033[0m\n");
 	test_write_unit(3, "Hello world", 10);
-	return (0);
+	test_write_unit(3, "Hello world", 1);
+	test_write_unit(3, "a", 10);
+	test_write_unit(3, NULL, 10);
+	test_write_unit(3, NULL, 0);
+	test_write_unit(-1, "Hello world", 10);
+	test_write_unit(3, "Hello world", -10);
+
+	printf ("\n-> TEST ft_read\n\033[0;90m###########################\033[0m\n\033[4;37m| read       | ft_read    |\033[0m\n");
+	test_read_unit(3, "Hello", 5);
+	test_read_unit(3, "Hello World", 5);
+	test_read_unit(3, "Hello", 10);
+	test_read_unit(3, NULL, 5);
+	test_read_unit(3, NULL, 1);
+	test_read_unit(3, "Hello", -19);
+	test_read_unit(-3, "Hello", 1);
+
 }

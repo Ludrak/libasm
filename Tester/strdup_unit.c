@@ -1,8 +1,6 @@
 
 #include "secure_exec.h"
-#include <stdio.h>
-#include <string.h>
-
+#include "libasm.h"
 
 int		test_strdup_unit(char *src)
 {
@@ -22,7 +20,7 @@ int		test_strdup_unit(char *src)
 	CATCH(&signal[0], &error[0]);
 	write (1, " | ", 3);
 	TRY
-		char *buf = strdup(src);
+		char *buf = ft_strdup(src);
 		strcpy(*results[1], buf);
 	CATCH(&signal[1], &error[1]);
 	write(1, " |", 2);

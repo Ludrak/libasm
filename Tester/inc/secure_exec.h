@@ -13,7 +13,8 @@
 # include <sys/ptrace.h>
 # include <sys/mman.h>
 
-# define STBUFFMAX	1024
+# define STBUFFMAX		1024
+# define MAX_ALLOC_SZ	0x10000000000
 
 char	*ft_itoa(int n);
 int		ft_atoi(const char *n);
