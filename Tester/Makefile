@@ -4,7 +4,7 @@ NAME=test-libasm
 SRCS=main.c utils.c strlen_unit.c strcpy_unit.c strncpy_unit.c strdup_unit.c strcmp_unit.c write_unit.c read_unit.c
 OBJDIR=bin
 OBJS=$(addprefix $(OBJDIR)/,$(SRCS:.c=.o))
-CFLAGS=#-g3 -fsanitize=address
+CFLAGS=-Wall -Wextra -Werror
 
 all: $(NAME)
 	@echo Done.
@@ -25,3 +25,11 @@ fclean: clean
 	rm -rf $(NAME)
 
 re: fclean all
+
+test:
+	make -C .. re
+	make re
+	clear
+	./$(NAME)
+
+.PHONY:all re fclean clean test

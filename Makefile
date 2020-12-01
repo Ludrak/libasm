@@ -42,10 +42,12 @@ $(OBJ_DIR)/%.o : $(SRC_DIR)/%.s $(HEADERS)
 clean :
 	@echo "Cleaning binaries"
 	@rm -rf $(OBJ_DIR)
+	@make -C Tester clean
 
 fclean : clean clean_test
 	@echo "Cleaning library"
 	@rm -rf $(NAME)
+	@make -C Tester fclean 
 
 re : fclean all
 

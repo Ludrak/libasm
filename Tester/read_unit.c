@@ -49,23 +49,23 @@ int		test_read_unit(int fd, char *buf, size_t size)
 	{
 		if (error[0] != error[1])
 		{
-			printf (" -> \033[1;31mKO\033[0m : errno does not match.\nwrite:		%d\nft_write:	%d\n", error[0], error[1]);
+			printf (" -> \033[1;31mKO\033[0m : errno does not match.\nread:		%d\nft_read:	%d\n", error[0], error[1]);
 			return (2);
 		}
 		else if (*results[0] != *results[1])
 		{
-			printf (" -> \033[1;31mKO\033[0m : results does not match.\nwrite:		%zu\nft_write:	%zu\n", *results[0], *results[1]);
+			printf (" -> \033[1;31mKO\033[0m : results does not match.\nread:		%zu\nft_read:	%zu\n", *results[0], *results[1]);
 			return (1);
 		}
 		else if (fd > 0 && size < MAX_ALLOC_SZ && strcmp(read_results[0], read_results[1]))
 		{
-			printf (" -> \033[1;31mKO\033[0m : read results does not match.\nwrite:		%zu\nft_write:	%zu\n", *results[0], *results[1]);
+			printf (" -> \033[1;31mKO\033[0m : read results does not match.\nread:		%zu\nft_read:	%zu\n", *results[0], *results[1]);
 			return (1);
 		}
 	}
 	else if (signal[0] != signal[1])
 	{
-		printf (" -> \033[1;31mKO\033[0m : signals does not match.\nwrite:		%d\nft_write:	%d\n", signal[0], signal[1]);
+		printf (" -> \033[1;31mKO\033[0m : signals does not match.\nread:		%d\nft_read:	%d\n", signal[0], signal[1]);
 		return (3);
 	}
 	printf (" -> \033[1;32mOK\033[0m\n");

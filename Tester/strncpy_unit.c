@@ -33,18 +33,18 @@ int		test_strncpy_unit(char *dst, char *src, size_t n)
 	{
 		if (strcmp(*results[0], *results[1]))
 		{
-			printf (" -> \033[1;31mKO\033[0m : results does not match.\nstrlen:		\"%s\"\nft_strlen:	\"%s\"\n", *results[0], *results[1]);
+			printf (" -> \033[1;31mKO\033[0m : results does not match.\nstrncpy:	\"%s\"\nft_strncpy:	\"%s\"\n", *results[0], *results[1]);
 			return (1);
 		}
 		else if (error[0] != error[1])
 		{
-			printf (" -> \033[1;31mKO\033[0m : errno does not match.\nstrlen:		%d\nft_strlen:	%d\n", error[0], error[1]);
+			printf (" -> \033[1;31mKO\033[0m : errno does not match.\nstrncpy:	%d\nft_strncpy:	%d\n", error[0], error[1]);
 			return (2);
 		}
 	}
 	else if (signal[0] != signal[1])
 	{
-		printf (" -> \033[1;31mKO\033[0m : signals does not match.\nstrlen:		%d\nft_strlen:	%d\n", signal[0], signal[1]);
+		printf (" -> \033[1;31mKO\033[0m : signals does not match.\nstrncpy:	%d\nft_strncpy:	%d\n", signal[0], signal[1]);
 		return (3);
 	}
 	printf (" -> \033[1;32mOK\033[0m\n");

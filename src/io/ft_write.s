@@ -43,9 +43,12 @@
 	extern	ERRNO
 
 ft_write:
+	push	rdx
 	mov		rax, W_CALL_x64
 	syscall
 	JERRNO	.errno
+	pop		rdx
+	ret
 
 ;   ERRNO catch
 .errno:
@@ -54,4 +57,5 @@ ft_write:
 	add		rsp, 8
 	mov		[rax], rdx
 	mov		rax, -1
+	pop		rdx
 	ret

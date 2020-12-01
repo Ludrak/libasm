@@ -24,18 +24,18 @@ int		test_strcmp_unit(char *str1, char *str2)
 	{
 		if (*results[0] != *results[1])
 		{
-			printf (" -> \033[1;31mKO\033[0m : results does not match.\nstrlen:		%zu\nft_strlen:	%zu\n", *results[0], *results[1]);
+			printf (" -> \033[1;31mKO\033[0m : results does not match.\nstrcmp:		%zu\nft_strcmp:	%zu\n", *results[0], *results[1]);
 			return (1);
 		}
 		else if (error[0] != error[1])
 		{
-			printf (" -> \033[1;31mKO\033[0m : errno does not match.\nstrlen:		%d\nft_strlen:	%d\n", error[0], error[1]);
+			printf (" -> \033[1;31mKO\033[0m : errno does not match.\nstrcmp:		%d\nft_strcmp:	%d\n", error[0], error[1]);
 			return (2);
 		}
 	}
 	else if (signal[0] != signal[1])
 	{
-		printf (" -> \033[1;31mKO\033[0m : signals does not match.\nstrlen:		%d\nft_strlen:	%d\n", signal[0], signal[1]);
+		printf (" -> \033[1;31mKO\033[0m : signals does not match.\nstrcmp:		%d\nft_strcmp:	%d\n", signal[0], signal[1]);
 		return (3);
 	}
 	printf (" -> \033[1;32mOK\033[0m\n");

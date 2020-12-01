@@ -28,18 +28,18 @@ int		test_strdup_unit(char *src)
 	{
 		if (strcmp(*results[0], *results[1]))
 		{
-			printf (" -> \033[1;31mKO\033[0m : results does not match.\nstrlen:		\"%s\"\nft_strlen:	\"%s\"\n", *results[0], *results[1]);
+			printf (" -> \033[1;31mKO\033[0m : results does not match.\nstrdup:		\"%s\"\nft_strdup:	\"%s\"\n", *results[0], *results[1]);
 			return (1);
 		}
 		else if (error[0] != error[1])
 		{
-			printf (" -> \033[1;31mKO\033[0m : errno does not match.\nstrlen:		%d\nft_strlen:	%d\n", error[0], error[1]);
+			printf (" -> \033[1;31mKO\033[0m : errno does not match.\nstrdup:		%d\nft_strdup:	%d\n", error[0], error[1]);
 			return (2);
 		}
 	}
 	else if (signal[0] != signal[1])
 	{
-		printf (" -> \033[1;31mKO\033[0m : signals does not match.\nstrlen:		%d\nft_strlen:	%d\n", signal[0], signal[1]);
+		printf (" -> \033[1;31mKO\033[0m : signals does not match.\nstrdup:		%d\nft_strdup:	%d\n", signal[0], signal[1]);
 		return (3);
 	}
 	printf (" -> \033[1;32mOK\033[0m\n");
