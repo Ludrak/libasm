@@ -5,7 +5,7 @@
 int		test_write_unit(int fd, char *buf, size_t size)
 {
 	int		signal[2], error[2];
-	ssize_t	*results[2];
+	size_t	*results[2];
 	char	*written_results[2];
 	int		fd_pipe[2];
 	VAR_INIT
