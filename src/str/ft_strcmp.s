@@ -12,6 +12,8 @@
 	section	.text
 	global	ft_strcmp
 
+
+;	int		ft_strcmp(char const *str1, char const *str2)
 ft_strcmp:
 ;	Equal - loop until character is null or not equals eachother
 .eq:

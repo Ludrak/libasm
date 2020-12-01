@@ -30,6 +30,8 @@
 	extern	ft_strlen
 	extern	ft_strncpy
 
+
+;	char	*ft_strdup(char *s)
 ft_strdup:	;rdi
 	push	rdi		;save src
 	call	ft_strlen	;call strlen

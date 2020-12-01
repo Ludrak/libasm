@@ -13,7 +13,9 @@
 
 	extern  ft_strlen
 	extern	ft_strncpy
-ft_strcpy:  ;rdi rsi
+
+;	char	*ft_strcpy(char *str1, char const *str2)
+ft_strcpy:
 	push	rdi
 	mov		rdi, rsi
 	call	ft_strlen

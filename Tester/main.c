@@ -27,7 +27,6 @@ int main(void)
 	test_strncpy_unit("", "World", 3);
 	test_strncpy_unit("Hello", "", 3);
 	test_strncpy_unit("Hello", "World", 7);
-	test_strncpy_unit("Hello", "World", -1);
 
 	printf ("\n\n-> TEST ft_strdup\n\033[0;90m###########################\033[0m\n\033[4;37m| strdup     | ft_strdup  |\033[0m\n");
 	test_strdup_unit("Hello");
