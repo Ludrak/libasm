@@ -32,8 +32,8 @@
 
 
 ;	char	*ft_strdup(char *s)
-ft_strdup:	;rdi
-	push	rdi		;save src
+ft_strdup:
+	push	rdi			;save src
 	call	ft_strlen	;call strlen
 	inc		rax			;increment for \0
 	mov		rdi, rax	;save size in rdi

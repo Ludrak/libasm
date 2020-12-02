@@ -41,15 +41,18 @@
 	extern	ERRNO
 
 ft_read:
+	push	rdx
 	mov		rax,	R_CALL_x64
 	syscall
 	JERRNO	.errno
+	pop		rdx
 	ret
 ;   ERRNO catch
 .errno:
-	sub		rsp,	8
+	sub		rsp,	128
 	call	ERRNO REF_LNK_TABLE
-	add		rsp,	8
+	add		rsp,	128
 	mov		[rax],	rdx
 	mov		rax,	-1
+	pop		rdx
 	ret

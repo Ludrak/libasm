@@ -12,7 +12,7 @@
 ;   Linux
 %ifidn __OUTPUT_FORMAT__, elf64
 	%assign W_CALL_x64  0x1
-	%define ERRNO		__errno_location
+	%define ERRNO_LOC		__errno_location
 	; wrt ..plt = with reference to [..]procedure linkage table
 	%define REF_LNK_TABLE	wrt ..plt
 	%macro JERRNO 1
@@ -52,9 +52,9 @@ ft_write:
 
 ;   ERRNO catch
 .errno:
-	sub		rsp, 8
+	sub		rsp, 128
 	call	ERRNO REF_LNK_TABLE
-	add		rsp, 8
+	add		rsp, 128
 	mov		[rax], rdx
 	mov		rax, -1
 	pop		rdx
